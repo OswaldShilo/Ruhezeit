@@ -1,3 +1,11 @@
+<table>
+  <tr>
+    <td><img src="image.png" alt="alt text 1" width="400"/></td>
+    <td><img src="image-1.png" alt="alt text 2" width="400"/></td>
+  </tr>
+</table>
+
+
 Ruhezeit — Chrome Extension (Manifest V3)
 
 Ruhezeit is a small, modular Chrome extension written in vanilla JavaScript, HTML and CSS that helps you run distraction-free focus sessions and organize browser tabs. This repository is an MV3 extension scaffold built to demonstrate: tab organization, focus sessions with blocking rules, and optional integration with built-in Chrome AI APIs (when available).
