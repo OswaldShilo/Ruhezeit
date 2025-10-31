@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ruhezeit UI Sandbox</title>
+  <style>
+    /* Local minimal styles (replaces Tailwind/remote fonts) */
+    body { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:#f6f8fa; margin:0; }
+    .center-outer { display:flex; align-items:center; justify-content:center; min-height:100vh; padding:18px; }
+    .card { min-width:320px; max-width:720px; background:white; box-shadow:0 10px 30px rgba(0,0,0,0.08); border-radius:16px; border:2px dashed #cbd5e1; overflow:hidden; }
+    .view-container { padding:28px 24px; text-align:center; display:flex; flex-direction:column; align-items:center; }
+    .mb-8 { margin-bottom:20px; }
+    .mb-6 { margin-bottom:16px; }
+    .mb-4 { margin-bottom:12px; }
+    .tagline { color:#475569; margin-bottom:20px; }
+    .btn { padding:12px 18px; border-radius:10px; border:1px solid rgba(0,0,0,0.06); background:white; cursor:pointer; font-weight:600; }
+    .btn-primary { background:#000; color:white; border:none; box-shadow: 0 8px 24px rgba(2,6,23,0.08); }
+    .timer-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; width:100%; max-width:520px; margin-bottom:16px; }
+    .timer-btn { padding:18px; border-radius:12px; border:1px solid #e6e9ef; background:#f7fafc; cursor:pointer; font-weight:600; }
+    .timer-btn.active { background:#000; color:#fff; }
+    .font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .hidden { display:none; }
+  </style>
+  <link rel="stylesheet" href="styles/global.css">
+  <link rel="stylesheet" href="styles/sidepanel.css">
+</head>
+<body>
+
+  <div class="center-outer">
+
+    <div class="card">
+      <!-- Drag handle for in-page overlay drag via postMessage -->
+      <div id="ruhezeit-drag-handle" style="position:absolute; right:12px; top:8px; z-index:1000; background:rgba(0,0,0,0.6); color:#fff; width:32px; height:32px; border-radius:6px; display:flex; align-items:center; justify-content:center; cursor:grab;">☰</div>
+      <!-- This is the container for the rendered view -->
+      <div id="app">
+        
+        <!-- Welcome / Start Focus View -->
+  <div class="view-container welcome-view">
+          
+          <header class="mb-8">
+            <h1 style="font-size:28px; font-weight:800; margin-bottom:6px; color:#0f172a">Stuck in a Universe of Madness?</h1>
+            <h2 style="font-size:16px; font-weight:500; color:#475569; margin:0;">Let's Get You Focused.</h2>
+          </header>
+          
+          <p class="tagline text-base text-gray-600 mb-10">Ruhezeit uses AI to organize your chaos and protect your focus - in 10 seconds.</p>
+    
+          <div style="width:100%; max-width:360px;">
+            <button id="start-focus-btn" class="btn btn-primary" style="width:100%; padding:14px 18px; font-size:16px;">🚀&nbsp;&nbsp;Start Focus Session</button>
+          </div>
+
+          <div style="width:100%; max-width:360px; margin-top:12px; display:flex; gap:8px; justify-content:center;">
+            <button id="open-summaries-btn" class="btn" style="flex:1;">Saved Summaries</button>
+            <button id="open-settings-btn" class="btn" style="flex:1;">Settings</button>
+          </div>
+          </div>
+
+        </div>
+        
+      </div>
+    </div>
+
+  </div>
+  <script src="sidepanel.js"></script>
+  <script>
+    // PostMessage-based drag handle: notify parent window when user drags the header inside the iframe
+    (function(){
+      const handle = document.getElementById('ruhezeit-drag-handle');
+      if (!handle) return;
+      let dragging = false;
+      let lastX = 0, lastY = 0;
+
+      function send(msg) {
+        try { window.parent.postMessage(Object.assign({ __ruhezeit: true }, msg), '*'); } catch(e){}
+      }
+
+      handle.addEventListener('pointerdown', (ev) => {
+        ev.preventDefault(); dragging = true; lastX = ev.clientX; lastY = ev.clientY;
+        send({ type: 'drag-start', x: lastX, y: lastY });
+        handle.setPointerCapture(ev.pointerId);
+      });
+
+      window.addEventListener('pointermove', (ev) => {
+        if (!dragging) return;
+        const dx = ev.clientX - lastX; const dy = ev.clientY - lastY;
+        lastX = ev.clientX; lastY = ev.clientY;
+        send({ type: 'drag-move', dx, dy });
+      });
+
+      window.addEventListener('pointerup', (ev) => {
+        if (!dragging) return; dragging = false;
+        send({ type: 'drag-end' });
+      });
+    })();
+  </script>
+</body>
+</html>

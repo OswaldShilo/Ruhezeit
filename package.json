@@ -1,0 +1,14 @@
+{
+  "name": "ruhezeit",
+  "version": "0.1.0",
+  "description": "Ruhezeit — a small Chrome extension for focus sessions and tab organization (Manifest V3)",
+  "main": "background.js",
+  "scripts": {
+    "lint": "eslint . || true",
+    "test": "echo \"No tests configured\"",
+    "build": "echo \"No build step — extension is vanilla JS\""
+  },
+  "keywords": ["chrome-extension", "manifest-v3", "productivity", "focus"],
+  "author": "Ruhezeit",
+  "license": "MIT"
+}

@@ -1,0 +1,62 @@
+/* Sidepanel specific styles */
+#app { padding:0; }
+#content { margin-top:8px; }
+
+/* Welcome View Specifics */
+.welcome-view {
+	text-align: center;
+	padding: 30px 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height: 250px;
+}
+
+.welcome-view header h1 {
+	font-size: 1.8rem;
+	font-weight: 700;
+	margin-bottom: 8px;
+	color: var(--text);
+	line-height: 1.2;
+}
+
+.welcome-view header h2 {
+	font-size: 1.4rem;
+	font-weight: 500;
+	color: var(--accent);
+	margin-top: 0;
+	margin-bottom: 25px;
+	line-height: 1.2;
+}
+
+.welcome-view .tagline {
+	font-size: 1.1rem;
+	color: rgba(0,0,0,0.6);
+	margin-bottom: 30px;
+	line-height: 1.5;
+}
+
+.welcome-view .button-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 15px;
+	max-width: 320px;
+	margin: 0 auto;
+}
+
+.btn { padding: 10px 14px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.08); background: white; cursor: pointer; }
+.btn-primary { background: var(--accent); color: white; border: none; }
+.emoji { margin-right: 8px; }
+
+/* Focus screens */
+.focus-setup-view blockquote { border-left:4px solid #e2e8f0; padding-left:12px; color:#374151; }
+.focus-active-view { min-height:420px; display:flex; flex-direction:column; }
+.font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+.timer-display-large { font-size:48px; font-weight:700; }
+
+/* Session summary card */
+.session-summary { padding:18px; }
+.session-summary .focus-status { font-size:18px; font-weight:600; margin-bottom:8px; }
+.session-summary blockquote { margin:8px 0 12px 0; color:#374151; }
+.actions { display:flex; gap:10px; justify-content:center; margin-top:12px; }
